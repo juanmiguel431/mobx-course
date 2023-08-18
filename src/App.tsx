@@ -2,7 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 // import './test-observables-and-actions';
-import './test-reactions';
+// import './test-reactions';
+import './test-computations';
 
 function App() {
   return (
