@@ -18,7 +18,10 @@ class Person {
 
     when(
       () => this.age != null && this.age > 99,
-      () => this.bury()
+      () => {
+        console.log('when')
+        this.bury();
+      }
     );
   }
 
@@ -50,15 +53,13 @@ newPerson = new Person({ firstName: 'Juan Miguel', lastName: 'Paulino Carpio' })
 
 const disposerReaction1 = reaction(
   () => newPerson?.isAlive === false,
-  () => console.log('RIP')
+  () => console.log('reaction: RIP')
 );
 
 const disposerReaction2 = autorun(() => {
   // await new Promise(r => setTimeout(r, 3000));
-  console.log(`Person FullName is ${newPerson?.firstName} ${newPerson?.lastName} age: ${newPerson?.age} isAlive: ${newPerson?.isAlive}`);
+  console.log(`autorun: Person FullName is ${newPerson?.firstName} ${newPerson?.lastName} age: ${newPerson?.age} isAlive: ${newPerson?.isAlive}`);
 });
-
-
 
 newPerson.setAge(100);
 
