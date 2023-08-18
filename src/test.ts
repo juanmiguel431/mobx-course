@@ -9,13 +9,7 @@ const person = observable({
 
 console.log('Our person is', person);
 
-// type PersonProps = keyof Person;
-interface PersonProps {
-  firstName: string;
-  lastName: string;
-}
-
-class Person implements PersonProps {
+class Person {
   public firstName: string;
   public lastName: string;
 
