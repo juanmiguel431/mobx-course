@@ -33,12 +33,21 @@ async function task() {
   newPerson = new Person('Luis Miguel', 'Paulino');
   await new Promise(r => setTimeout(r, 3000));
 
+  newPerson.updateFirstName('Lucas Santiago - Using actions');
 
-  // newPerson.updateFirstName('Lucas'); // Using actions functions
+  await new Promise(r => setTimeout(r, 3000));
 
   runInAction(() => {
-    newPerson.firstName = 'Juan Miguel';
+    newPerson.firstName = 'Juan Miguel - Using runInAction Function';
   });
+
+  await new Promise(r => setTimeout(r, 3000));
+
+  const updater = action(() => {
+    newPerson.firstName = 'Antonio Marte - Using action function';
+  });
+
+  updater();
 }
 
 task();
