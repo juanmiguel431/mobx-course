@@ -82,7 +82,20 @@ async function updatingMultipleObservablesInOneSingleAction() {
   newPerson.updateFullName('Lucas', 'Santiago');
 }
 
-updatingMultipleObservablesInOneSingleAction()
+// updatingMultipleObservablesInOneSingleAction();
+
+
+// This will cause the side effect happens more than once.
+async function updatingMultipleObservablesUsingAsyncAwait() {
+  newPerson = new Person('Luis Miguel', 'Paulino');
+  await new Promise(r => setTimeout(r, 3000));
+
+  newPerson.updateFirstName('Lucas');
+  await new Promise(r => setTimeout(r, 3000));
+  newPerson.updateLastName('Santiago');
+}
+
+updatingMultipleObservablesUsingAsyncAwait();
 
 autorun(() => {
   console.log('Person FullName is ' + newPerson.firstName + ' ' + newPerson.lastName);
