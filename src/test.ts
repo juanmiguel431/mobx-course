@@ -1,4 +1,4 @@
-import { action, autorun, makeObservable, observable } from 'mobx';
+import { action, autorun, makeObservable, observable, runInAction } from 'mobx';
 
 console.log('it works');
 
@@ -27,14 +27,20 @@ class Person {
   })
 }
 
+let newPerson: Person;
 
 async function task() {
   newPerson = new Person('Luis Miguel', 'Paulino');
   await new Promise(r => setTimeout(r, 3000));
-  newPerson.updateFirstName('Lucas');
+
+
+  // newPerson.updateFirstName('Lucas'); // Using actions functions
+
+  runInAction(() => {
+    newPerson.firstName = 'Juan Miguel';
+  });
 }
 
-let newPerson: Person;
 task();
 
 autorun(() => {
