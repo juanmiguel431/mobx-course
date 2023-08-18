@@ -1,5 +1,4 @@
-import { action, autorun, makeObservable, observable, when } from 'mobx';
-
+import { action, autorun, makeObservable, observable, reaction, when } from 'mobx';
 
 class Person {
   public firstName: string | null = null;
@@ -43,15 +42,27 @@ class Person {
   public bury = action(() => {
     this.isAlive = false;
   })
-
 }
 
+let newPerson: Person;
+newPerson = new Person({ firstName: 'Juan Miguel', lastName: 'Paulino Carpio' });
 
-let newPerson: Person = new Person({ firstName: 'Juan Miguel', lastName: 'Paulino Carpio' });
-newPerson.setAge(65);
 
-autorun(() => {
-  console.log(`Person FullName is ${newPerson?.firstName} ${newPerson?.lastName} age: ${newPerson.age} isAlive: ${newPerson.isAlive}`);
-}, { });
+const disposerReaction1 = reaction(
+  () => newPerson?.isAlive === false,
+  () => console.log('RIP')
+);
+
+const disposerReaction2 = autorun(() => {
+  // await new Promise(r => setTimeout(r, 3000));
+  console.log(`Person FullName is ${newPerson?.firstName} ${newPerson?.lastName} age: ${newPerson?.age} isAlive: ${newPerson?.isAlive}`);
+});
+
+
+
+newPerson.setAge(100);
+
+disposerReaction1();
+disposerReaction2();
 
 export {};
