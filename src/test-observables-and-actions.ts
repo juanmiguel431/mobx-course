@@ -95,10 +95,12 @@ async function updatingMultipleObservablesUsingAsyncAwait() {
   newPerson.updateLastName('Santiago');
 }
 
-updatingMultipleObservablesUsingAsyncAwait();
+// updatingMultipleObservablesUsingAsyncAwait();
+
+newPerson = new Person('Juan', 'Miguel');
 
 autorun(() => {
-  console.log('Person FullName is ' + newPerson.firstName + ' ' + newPerson.lastName);
-})
+  console.log('Person FullName is ' + newPerson?.firstName + ' ' + newPerson?.lastName);
+}, { });
 
 export {};
