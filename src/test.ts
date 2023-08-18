@@ -16,20 +16,30 @@ class Person {
   constructor(name: string, lastName: string) {
     makeObservable(this, {
       firstName: observable,
+      lastName: observable
     });
 
     this.firstName = name;
     this.lastName = lastName;
   }
 
-  public updateFirstName = action((name: string) => {
-    this.firstName = name;
+  public updateFirstName = action((firstName: string) => {
+    this.firstName = firstName;
+  })
+
+  public updateLastName = action((lastName: string) => {
+    this.lastName = lastName;
+  })
+
+  public updateFullName = action((firstName: string, lastName: string) => {
+    this.firstName = firstName;
+    this.lastName = lastName;
   })
 }
 
 let newPerson: Person;
 
-async function task() {
+async function taskToDemonstrateDifferentTypesOfActions() {
   newPerson = new Person('Luis Miguel', 'Paulino');
   await new Promise(r => setTimeout(r, 3000));
 
@@ -50,10 +60,32 @@ async function task() {
   updater();
 }
 
-task();
+// taskToDemonstrateDifferentTypesOfActions();
+
+// The call of two actions means two different SideEffects or render in React.
+async function callingTwoActions() {
+  newPerson = new Person('Luis Miguel', 'Paulino');
+  await new Promise(r => setTimeout(r, 3000));
+
+  newPerson.updateFirstName('Lucas');
+  newPerson.updateLastName('Santiago');
+}
+
+// callingTwoActions();
+
+
+// This will result in just one side effect or render.
+async function updatingMultipleObservablesInOneSingleAction() {
+  newPerson = new Person('Luis Miguel', 'Paulino');
+  await new Promise(r => setTimeout(r, 3000));
+
+  newPerson.updateFullName('Lucas', 'Santiago');
+}
+
+updatingMultipleObservablesInOneSingleAction()
 
 autorun(() => {
-  console.log('Person name is ' + newPerson.firstName);
+  console.log('Person FullName is ' + newPerson.firstName + ' ' + newPerson.lastName);
 })
 
 export {};
