@@ -53,6 +53,10 @@ class Person {
     this.isAlive = false;
   })
 
+  public withdrawl = action(() => {
+    this.dollars = this.dollars - 1;
+  })
+
   get euros() {
     console.log('Euros Getter');
     return this.dollars * 2;
@@ -68,9 +72,10 @@ const disposerReaction2 = autorun(() => {
 
 person.setDollars(100);
 
-console.log(person.euros);
-console.log(person.euros);
-console.log(person.euros);
+person.withdrawl();
+person.withdrawl();
+person.withdrawl();
+person.withdrawl();
 
 disposerReaction2();
 
