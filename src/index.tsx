@@ -4,6 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const object = new class { x: any }();
+if (!object.hasOwnProperty('x')) {
+  throw new Error('Transpiler is not configured correctly');
+}
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
