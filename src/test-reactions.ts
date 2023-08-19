@@ -47,21 +47,23 @@ class Person {
   })
 }
 
-let newPerson: Person;
-newPerson = new Person({ firstName: 'Juan Miguel', lastName: 'Paulino Carpio' });
-
+let person: Person;
+person = new Person({ firstName: 'Juan Miguel', lastName: 'Paulino Carpio' });
 
 const disposerReaction1 = reaction(
-  () => newPerson?.isAlive === false,
+  () => person?.isAlive === false,
   () => console.log('reaction: RIP')
 );
 
-const disposerReaction2 = autorun(() => {
+const disposerReaction2 = autorun(async () => {
   // await new Promise(r => setTimeout(r, 3000));
-  console.log(`autorun: Person FullName is ${newPerson?.firstName} ${newPerson?.lastName} age: ${newPerson?.age} isAlive: ${newPerson?.isAlive}`);
+  // console.log(newPerson);
+  console.log(`autorun: Person FullName is ${person?.firstName} ${person?.lastName} age: ${person?.age} isAlive: ${person?.isAlive}`);
 });
 
-newPerson.setAge(100);
+person.updateFullName('Nicola', 'Tesla');
+
+// newPerson.setAge(100);
 
 disposerReaction1();
 disposerReaction2();
