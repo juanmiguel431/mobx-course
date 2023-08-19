@@ -13,7 +13,12 @@ class Person {
       firstName: observable,
       lastName: observable,
       age: observable,
-      isAlive: observable
+      isAlive: observable,
+      setAge: action,
+      bury: action,
+      updateFullName: action,
+      updateFirstName: action,
+      updateLastName: action,
     });
 
     when(
@@ -25,26 +30,26 @@ class Person {
     );
   }
 
-  public updateFirstName = action((firstName: string) => {
+  public updateFirstName(firstName: string) {
     this.firstName = firstName;
-  })
+  }
 
-  public updateLastName = action((lastName: string) => {
+  public updateLastName(lastName: string) {
     this.lastName = lastName;
-  })
+  }
 
-  public updateFullName = action((firstName: string, lastName: string) => {
+  public updateFullName(firstName: string, lastName: string) {
     this.firstName = firstName;
     this.lastName = lastName;
-  })
+  }
 
-  public setAge = action((age: number) => {
+  public setAge(age: number) {
     this.age = age;
-  })
+  }
 
-  public bury = action(() => {
+  public bury() {
     this.isAlive = false;
-  })
+  }
 }
 
 let person: Person;

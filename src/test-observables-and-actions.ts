@@ -16,25 +16,28 @@ class Person {
   constructor(name: string, lastName: string) {
     makeObservable(this, {
       firstName: observable,
-      lastName: observable
+      lastName: observable,
+      updateFirstName: action,
+      updateLastName: action,
+      updateFullName: action
     });
 
     this.firstName = name;
     this.lastName = lastName;
   }
 
-  public updateFirstName = action((firstName: string) => {
+  public updateFirstName(firstName: string) {
     this.firstName = firstName;
-  })
+  }
 
-  public updateLastName = action((lastName: string) => {
+  public updateLastName(lastName: string) {
     this.lastName = lastName;
-  })
+  }
 
-  public updateFullName = action((firstName: string, lastName: string) => {
+  public updateFullName(firstName: string, lastName: string) {
     this.firstName = firstName;
     this.lastName = lastName;
-  })
+  }
 }
 
 let newPerson: Person;
@@ -101,6 +104,6 @@ newPerson = new Person('Juan', 'Miguel');
 
 autorun(() => {
   console.log('Person FullName is ' + newPerson?.firstName + ' ' + newPerson?.lastName);
-}, { });
+}, {});
 
 export {};

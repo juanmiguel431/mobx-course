@@ -23,7 +23,9 @@ class Todo {
   constructor(name: string) {
     makeObservable(this, {
       name: observable,
-      isCompleted: observable
+      isCompleted: observable,
+      updateName: action,
+      toggleCompletedState: action,
     });
 
     this.name = name;
@@ -40,13 +42,13 @@ class Todo {
     this.reactionDisposer()
   }
 
-  public toggleCompletedState = action(() => {
+  public toggleCompletedState = () => {
     this.isCompleted = !this.isCompleted;
-  })
+  }
 
-  public updateName = action((name: string) => {
+  public updateName = (name: string) => {
     this.name = name;
-  })
+  }
 }
 
 class TodoList {
@@ -58,6 +60,8 @@ class TodoList {
       todoList: observable,
       completed: computed,
       pending: computed,
+      add: action,
+      remove: action
     });
 
     this.reactionDisposer = reaction(
@@ -79,23 +83,23 @@ class TodoList {
     this.reactionDisposer();
   }
 
-  public add = action((name: string) => {
+  public add = (name: string) => {
     this.todoList.push(new Todo(name));
-  })
+  }
 
   public getByName = (name: string) => {
     return this.todoList.find(t => t.name === name);
   }
 
-  public remove = action((name: string) => {
+  public remove = (name: string) => {
     const todoIndex = this.todoList.findIndex(p => p.name === name);
     if (todoIndex === -1) return;
 
-    const todo= this.todoList[todoIndex];
+    const todo = this.todoList[todoIndex];
     todo.dispose();
 
     this.todoList.splice(todoIndex, 1);
-  })
+  }
 
   get completed() {
     return this.todoList.filter(p => p.isCompleted);

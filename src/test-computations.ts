@@ -16,7 +16,14 @@ class Person {
       age: observable,
       isAlive: observable,
       dollars: observable,
-      euros: computed
+      euros: computed,
+      updateFirstName: action,
+      updateLastName: action,
+      updateFullName: action,
+      setAge: action,
+      setDollars: action,
+      bury: action,
+      withdrawl: action
     });
 
     when(
@@ -28,34 +35,34 @@ class Person {
     );
   }
 
-  public updateFirstName = action((firstName: string) => {
+  public updateFirstName(firstName: string) {
     this.firstName = firstName;
-  })
+  }
 
-  public updateLastName = action((lastName: string) => {
+  public updateLastName(lastName: string) {
     this.lastName = lastName;
-  })
+  }
 
-  public updateFullName = action((firstName: string, lastName: string) => {
+  public updateFullName(firstName: string, lastName: string) {
     this.firstName = firstName;
     this.lastName = lastName;
-  })
+  }
 
-  public setAge = action((age: number) => {
+  public setAge(age: number) {
     this.age = age;
-  })
+  }
 
-  public setDollars = action((dollars: number) => {
+  public setDollars(dollars: number) {
     this.dollars = dollars;
-  })
+  }
 
-  public bury = action(() => {
+  public bury() {
     this.isAlive = false;
-  })
+  }
 
-  public withdrawl = action(() => {
+  public withdrawl() {
     this.dollars = this.dollars - 1;
-  })
+  }
 
   get euros() {
     console.log('Euros Getter');
